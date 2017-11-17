@@ -1,0 +1,10 @@
+/*My style - another bootstrap*/
+@import "style.css";
+
+.if-discount {
+  border-left: 3px solid red;
+}
+
+.no-cars-info {
+  text-transform: uppercase;
+}

@@ -1,0 +1,62 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-12">
+      <!--ngIf -> mozna powiedziec ze jest to normalny if. On bedzie
+      odpowiedzialny za logike gdy bedziemy miec samochody w liscie to je
+      wyswietli, a gdy ich nie bedzie to wyswietli nam odpowiedni
+      komunikat.
+      jesli dlugosc tablicy cars jest wieksza niz 0 to wyswietli nam samochody
+      a jesli nie (else) to wtedy odniesie sie do noCarsInfo (czyli
+      pokazemy blok, ktory bedzie odnosic sie do drzewa DOM
+      (document, object, model) - kawalaka HTML [PATRZ NIZEJ]
+      Po przecinku mozemy zawsze podac kolejne warunki-->
+      <h3>Tabela samochodów</h3>
+      <table *ngIf="cars.length > 0; else noCarsInfo" class="table table-striped text-center">
+        <tr class="thead-inverse">
+          <th class=text-center>Car</th>
+          <th class=text-center>License plate</th>
+          <th class=text-center>Rent start</th>
+          <th class=text-center>Rent end</th>
+          <th class=text-center>Client</th>
+          <th class=text-center>Cost</th>
+          <th class=text-center>Discount</th>
+          <th class=text-center>Options</th>
+        </tr>
+        <tbody>
+        <!--ngFor -> (gwiazda oznacza skrót) korzystam z wbudowanej dryrektywy Angulara
+        która pozwoli mi wyświetlić wszystkie samochody z tablicy car
+        ponieważ przejdzie mi po wszystkich elementach
+        "let car of cars -> let slowko tak jakby kluczowe,
+        czyli zmienna mozna tak powiedziec, + nasze car, ktore
+        tutaj wywolujamy z tablicy cars, ktore zdefiniowalismy sobie
+        w komponencie car-list-->
+        <tr *ngFor="let car of cars">
+          <!--ngClass -> w znacznikach (stringu) podajemy nazwe naszej
+          klasy ktora ma sie pokazac - u mnie 'if-discount' , a pozniej
+          jest warunek logiczny - u mnie czy auto jest przecenione? to jest
+          boolean wiec jezeli bedzie tru to ta klasa sie wykona-->
+          <td [ngClass]="{'if-discount': car.ifDiscount}">{{car.model}}</td>
+          <td>{{car.licensePlate}}</td>
+          <td>{{car.rentStart}}</td>
+          <td>{{car.rentEnd}}</td>
+          <td>{{car.client.firstName}} {{car.client.secondName}}</td>
+          <!--20% prowizji dla firmy ktora wypozycza-->
+          <td>{{car.cost + (car.cost * 0.2)}}</td>
+          <td>{{car.ifDiscount}}</td>
+          <td>View / Edit / Delete</td>
+        </tr>
+        </tbody>
+      </table>
+      <!-- # -> oznacza TemplateVariable - czyli pozwala nam sie odnieść
+      do kawałka drzewa DOM/ złapać do niego referencje
+      Czyli tak swoimi słowami - jezeli sobie cos okreslilismy w elsie
+      to mozemy sie odwolac za pomoca ng-template i hasztagiem jaki
+      mamy w naszym elsie-->
+      <ng-template #noCarsInfo>
+        <div class="alert alert-danger no-cars-info">
+          <strong>Warning!</strong> Currently no cars to rental.
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>
