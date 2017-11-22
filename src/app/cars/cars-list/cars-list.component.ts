@@ -1,4 +1,6 @@
 import {Component, OnInit} from '@angular/core';
+import {Car} from "../models/car";
+import {CarsService} from "../cars.service";
 
 @Component({
   selector: 'cars-list',
@@ -8,66 +10,19 @@ import {Component, OnInit} from '@angular/core';
 /*klasa implementuje interfejs OnInit*/
 export class CarsListComponent implements OnInit {
 
-  /*to bedzie funkcja ktory bedzie obliczal nam
+  /*to bedzie funkcja ktory bedzie obliczala nam
   * calkowita sume kosztow jaki musi zaplacic
   * klient za wynajem samochodu*/
 
   /*totalCost: number;* ---- nie uzywam w projekcie tego teraz, zobacze pozniej/ */
 
 
-  /*tablica samochodów, która tworze na sztywno aby wyświetlić ją w html*/
-  cars = [
-    {
-      id: 1,
-      model: 'Opel Astra III',
-      licensePlate: 'PKL 11G8',
-      rentStart: '07-07-2017',
-      rentEnd: '12-12-2017',
-      client: {
-        firstName: 'Sebastian',
-        secondName: 'Woźniak',
-        phoneNumber: '723844765',
-        email: 'seba@seba.com',
-      },
-      cost: 10000,
-      ifDiscount: false,
+  /*tablica samochodów, która tworze na sztywno aby wyświetlić ją w html - usunalem stworzone samochody
+  * poniewaz teraz wszystko bedzie wczytywane z bazy*/
+  cars: Car[];
 
-    },
-    {
-      id: 2,
-      model: 'Opel Astra III',
-      licensePlate: 'PKL 11G8',
-      rentStart: '07-07-2017',
-      rentEnd: '12-12-2017',
-      client: {
-        firstName: 'Sebastian',
-        secondName: 'Woźniak',
-        phoneNumber: '723844765',
-        email: 'seba@seba.com',
-      },
-      cost: 25000,
-      ifDiscount: true,
-
-    },
-    {
-      id: 3,
-      model: 'Opel Astra III',
-      licensePlate: 'PKL 11G8',
-      rentStart: '07-07-2017',
-      rentEnd: '12-12-2017',
-      client: {
-        firstName: 'Sebastian',
-        secondName: 'Woźniak',
-        phoneNumber: '723844765',
-        email: 'seba@seba.com',
-      },
-      cost: 97542,
-      ifDiscount: false,
-
-    }
-  ]
-
-  constructor() {
+  /*serwisy wstrzykujemy do konstruktorow naszych componentow*/
+  constructor(private carsService: CarsService) {
   }
 
   /*metoda ngOnInit interfejsu OnInit - jest to punkt zycia komponentu,
@@ -75,6 +30,7 @@ export class CarsListComponent implements OnInit {
   * moge tu podac konkretne wywolania*/
   ngOnInit() {
     /* this.countTotalCost();  ---- tego nie uzylem bo nie jest mi potrzebne*/
+    this.loadCars();
   }
 
   /*to bedzie metoda do obliczenia wlasnie calkowitego kosztu
@@ -87,5 +43,12 @@ export class CarsListComponent implements OnInit {
   /*countTotalCost(): void {
     this.totalCost = this.cars.map((car) => car.cost).reduce((prev, next) => prev + next);
   }*/
+
+  /*metoda
+  * subscribe - mozemy sie subskrybowac do strumeinia danych, czyli
+  * beda one odebrane z naszego parametru cars*/
+  loadCars(): void {
+    this.carsService.getCars().subscribe((cars) => this.cars = cars)
+  }
 
 }

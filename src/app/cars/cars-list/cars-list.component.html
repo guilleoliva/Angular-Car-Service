@@ -11,7 +11,7 @@
       (document, object, model) - kawalaka HTML [PATRZ NIZEJ]
       Po przecinku mozemy zawsze podac kolejne warunki-->
       <h3>Tabela samochodów</h3>
-      <table *ngIf="cars.length > 0; else noCarsInfo" class="table table-striped text-center">
+      <table *ngIf="cars && cars.length > 0; else noCarsInfo" class="table table-striped text-center">
         <tr class="thead-inverse">
           <th class=text-center>Car</th>
           <th class=text-center>License plate</th>
@@ -35,14 +35,14 @@
           klasy ktora ma sie pokazac - u mnie 'if-discount' , a pozniej
           jest warunek logiczny - u mnie czy auto jest przecenione? to jest
           boolean wiec jezeli bedzie tru to ta klasa sie wykona-->
-          <td [ngClass]="{'if-discount': car.ifDiscount}">{{car.model}}</td>
-          <td>{{car.licensePlate}}</td>
-          <td>{{car.rentStart}}</td>
-          <td>{{car.rentEnd}}</td>
-          <td>{{car.client.firstName}} {{car.client.secondName}}</td>
+          <td [ngClass]="{'if-discount': car.ifDiscount}">{{car?.model}}</td>
+          <td>{{car?.licensePlate}}</td>
+          <td>{{car?.rentStart}}</td>
+          <td>{{car?.rentEnd}}</td>
+          <td>{{car?.clientFirstName}} {{car?.clientSecondName}}</td>
           <!--20% prowizji dla firmy ktora wypozycza-->
-          <td>{{car.cost + (car.cost * 0.2)}}</td>
-          <td>{{car.ifDiscount}}</td>
+          <td>{{car?.cost + (car?.cost * 0.2)}}</td>
+          <td>{{car?.ifDiscount}}</td>
           <td>View / Edit / Delete</td>
         </tr>
         </tbody>

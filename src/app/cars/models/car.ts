@@ -1,15 +1,18 @@
 /*to jest plik TypeScript, który bedzie nam reprezetowac 1 samochod*/
 
-import {Client} from "./client";
-
 export interface Car {
   id: number;
   model: string;
+  type: string;
   licensePlate: string;
   rentStart: string;
   rentEnd: string;
-  client: Client; /*importujemy klienta z innego pliku TypeScript*/
+  color: string;
+  power: number;
+  clientFirstName: string;
+  clientSecondName: string;
+  clientPhoneNumber: string;
+  clientEmail: string;
   cost: number;
   ifDiscount: false;
-
 }

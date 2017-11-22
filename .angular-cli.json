@@ -56,6 +56,9 @@
   },
   "defaults": {
     "styleExt": "css",
+    "build": {
+      "showCircularDependencies": false
+    },
     "component": {
       "spec": false
     }
