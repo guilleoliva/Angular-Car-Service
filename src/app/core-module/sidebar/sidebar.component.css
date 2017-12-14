@@ -1,0 +1,45 @@
+
+.sidebar {
+  width: 300px;
+  background: #6eb5ff;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+}
+
+nav {
+  margin-top: 150px;
+}
+
+.menu {
+  box-sizing: border-box;
+  border-top: 1px solid #6eb5ff;
+  border-bottom: 1px solid #6eb5ff;
+}
+
+.menu:hover {
+  background: white;
+  transition: linear 300ms;
+}
+
+p {
+  text-align: center;
+  font-family: Arial;
+  font-weight: 900;
+  color: white;
+  text-transform: uppercase;
+  cursor: pointer;
+  font-size: 30px;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+p:hover {
+  color: #6eb5ff;
+  transition: linear 300ms;
+}
+
+.active {
+  color: #6eb5ff;
+  background: white;
+}

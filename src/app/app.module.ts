@@ -6,6 +6,10 @@ import {CarsModule} from "./cars/cars.module";
 import {CarsService} from "./cars/cars.service";
 import {HttpModule} from "@angular/http";
 import {FormsModule} from "@angular/forms";
+import {CoreModule} from "./core-module/core-module.module";
+import {AppRoutingModule} from "./app.routing.module";
+import {CarsRoutingModule} from "./cars/cars-routing-module";
+
 
 @NgModule({
   declarations: [
@@ -18,7 +22,10 @@ import {FormsModule} from "@angular/forms";
     BrowserModule,
     CarsModule,
     HttpModule,
-    FormsModule
+    FormsModule,
+    CoreModule,
+    AppRoutingModule,
+    CarsRoutingModule
   ],
   /*tutaj - w providers - podajemy wszystkie servisy ktore mamy*/
   providers: [CarsService],
@@ -26,3 +33,4 @@ import {FormsModule} from "@angular/forms";
 })
 export class AppModule {
 }
+

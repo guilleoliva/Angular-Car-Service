@@ -16,7 +16,7 @@ export class CarsService {
 
   /*wstrzykujemy http do konstruktora, ktory obsluguje nasze
   * podstawowe zapytania http np get post delete response*/
-  constructor(private http : Http) {
+  constructor(private http: Http) {
   }
 
   /*Observable to tak jakby strumien danych*/
@@ -26,5 +26,10 @@ export class CarsService {
   * METODA getCars pobierze nam wszystkie samochody*/
   getCars(): Observable<Car[]> {
     return this.http.get(this.apiUrl).map((res) => res.json())
+  }
+
+
+  getCar(id: number): Observable<Car> {
+    return this.http.get(this.apiUrl + "/" + id).map((res) => res.json())
   }
 }
