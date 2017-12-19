@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Car} from "../models/car";
 import {CarsService} from "../cars.service";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'cars-list',
@@ -21,8 +22,10 @@ export class CarsListComponent implements OnInit {
   * poniewaz teraz wszystko bedzie wczytywane z bazy*/
   cars: Car[];
 
+  carForm: FormGroup;
+
   /*serwisy wstrzykujemy do konstruktorow naszych componentow*/
-  constructor(private carsService: CarsService) {
+  constructor(private carsService: CarsService, private formBuilder: FormBuilder) {
   }
 
   /*metoda ngOnInit interfejsu OnInit - jest to punkt zycia komponentu,
@@ -31,6 +34,7 @@ export class CarsListComponent implements OnInit {
   ngOnInit() {
     /* this.countTotalCost();  ---- tego nie uzylem bo nie jest mi potrzebne*/
     this.loadCars();
+    this.carForm = this.buildCarForm();
   }
 
   /*to bedzie metoda do obliczenia wlasnie calkowitego kosztu
@@ -49,6 +53,31 @@ export class CarsListComponent implements OnInit {
   * beda one odebrane z naszego parametru cars*/
   loadCars(): void {
     this.carsService.getCars().subscribe((cars) => this.cars = cars)
+  }
+
+  addCar() {
+    this.carsService.addCar(this.carForm.value).subscribe(() => {
+      this.loadCars();
+    });
+  }
+
+  buildCarForm() {
+    return this.formBuilder.group({
+      model: ['', Validators.required],
+      type: '',
+      year: '',
+      licensePlate: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(7)]],
+      color: '',
+      rentStart: '',
+      rentEnd: '',
+      power: '',
+      clientFirstName: '',
+      clientSecondName: '',
+      clientPhoneNumber: '',
+      clientEmail: '',
+      cost: '',
+      ifDiscount: '',
+    })
   }
 
 }

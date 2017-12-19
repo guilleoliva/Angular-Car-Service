@@ -1,0 +1,76 @@
+{
+  "name": "car",
+  "plural": "cars",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "id": {
+      "type": "number",
+      "required": true
+    },
+    "model": {
+      "type": "string",
+      "required": true
+    },
+    "type": {
+      "type": "string",
+      "required": true
+    },
+    "year": {
+      "type": "string",
+      "required": true
+    },
+    "licensePlate": {
+      "type": "string",
+      "required": true
+    },
+    "color": {
+      "type": "string",
+      "required": true
+    },
+    "rentStart": {
+      "type": "string",
+      "required": true
+    },
+    "rentEnd": {
+      "type": "string",
+      "required": true
+    },
+    "power": {
+      "type": "number",
+      "required": true
+    },
+    "clientFirstName": {
+      "type": "string",
+      "required": true
+    },
+    "clientSecondName": {
+      "type": "string",
+      "required": true
+    },
+    "clientPhoneNumber": {
+      "type": "string",
+      "required": true
+    },
+    "clientEmail": {
+      "type": "string",
+      "required": true
+    },
+    "cost": {
+      "type": "number",
+      "required": true
+    },
+    "ifDiscount": {
+      "type": "boolean",
+      "required": true,
+      "default": false
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

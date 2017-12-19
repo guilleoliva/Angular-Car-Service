@@ -14,9 +14,10 @@
 
       </cs-header>
       <h3>Tabela samochodów</h3>
-      <table *ngIf="cars && cars.length > 0; else noCarsInfo"  class="table table-striped text-center">
+      <table *ngIf="cars && cars.length > 0; else noCarsInfo" class="table table-striped text-center">
         <tr class="thead-inverse">
           <th class=text-center>Car</th>
+          <th class=text-center>Year</th>
           <th class=text-center>License plate</th>
           <th class=text-center>Rent start</th>
           <th class=text-center>Rent end</th>
@@ -33,7 +34,7 @@
         czyli zmienna mozna tak powiedziec, + nasze car, ktore
         tutaj wywolujamy z tablicy cars, ktore zdefiniowalismy sobie
         w komponencie car-list-->
-        <tr *ngFor="let car of cars" class="row-car" [routerLink]="['/cars', car.id]">
+        <tr *ngFor="let car of cars" class="row-car">
           <!--ngClass -> w znacznikach (stringu) podajemy nazwe naszej
           klasy ktora ma sie pokazac - u mnie 'if-discount' , a pozniej
           jest warunek logiczny - u mnie czy auto jest przecenione? to jest
@@ -41,7 +42,8 @@
 
           znak zapytania > -> jest po to zeby angular poczekal i nie
           zaladowal nam nulli bo jeszcze nie mamy zadnego samochodu -->
-          <td [ngClass]="{'if-discount': car.ifDiscount}">{{car?.model}}</td>
+          <td [ngClass]="{'if-discount': car.ifDiscount}">{{car?.model}} {{car?.type}}</td>
+          <td>{{car?.year}}</td>
           <td>{{car?.licensePlate}}</td>
           <td>{{car?.rentStart}}</td>
           <td>{{car?.rentEnd}}</td>
@@ -49,7 +51,11 @@
           <!--20% prowizji dla firmy z ktorej wypozyczam-->
           <td>{{car?.cost + (car?.cost * 0.2)}}</td>
           <td>{{car?.ifDiscount}}</td>
-          <td>View / Edit / Delete</td>
+          <td>
+            <button type="button" class="btn btn-info btn-sm">Edit</button>
+            <button type="button" class="btn btn-primary btn-sm" [routerLink]="['/cars', car.id]">Info</button>
+            <button type="button" class="btn btn-danger btn-sm">Delete</button>
+          </td>
         </tr>
         </tbody>
       </table>
@@ -65,4 +71,128 @@
       </ng-template>
     </div>
   </div>
+
+  <h1>Dodaj nowy samochód</h1>
+
+  <div class="my-onw-form">
+    <form action="" [formGroup]="carForm">
+
+      <div class="row form-group">
+
+        <div class="col-sm-4">
+          <label>Marka</label>
+          <input formControlName="model" type="text" class="form-control">
+          <div *ngIf="!carForm.get('model').valid && carForm.get('model').dirty" class="alert alert-danger">
+            <strong>To pole jest wymagane!</strong>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <label>Model</label>
+          <input formControlName="type" type="text" class="form-control">
+        </div>
+
+        <div class="col-sm-4">
+          <label>Rok</label>
+          <input formControlName="year" type="text" class="form-control">
+        </div>
+
+      </div>
+
+
+      <div class="row form-group">
+
+        <div class="col-sm-4">
+          <label>Numer rejestracyjny</label>
+          <input formControlName="licensePlate" type="text" class="form-control">
+          <div *ngIf="!carForm.get('licensePlate').valid && carForm.get('licensePlate').dirty"
+               class="alert alert-danger">
+            <strong>To pole jest wymagane i musi zawierać 3-7 znaki!</strong>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <label>Kolor</label>
+          <input formControlName="color" type="text" class="form-control">
+        </div>
+
+        <div class="col-sm-4">
+          <label>Data wypożyczenia</label>
+          <input formControlName="rentStart" type="text" class="form-control">
+        </div>
+
+      </div>
+
+      <div class="row form-group">
+
+        <div class="col-sm-4">
+          <label>Data zwrotu</label>
+          <input formControlName="rentEnd" type="text" class="form-control">
+        </div>
+
+        <div class="col-sm-4">
+          <label>Moc silnika</label>
+          <input formControlName="power" type="number" class="form-control">
+        </div>
+
+        <div class="col-sm-4">
+          <label>Imię</label>
+          <input formControlName="clientFirstName" type="text" class="form-control">
+        </div>
+
+      </div>
+
+      <div class="row form-group">
+
+        <div class="col-sm-4">
+          <label>Nazwisko</label>
+          <input formControlName="clientSecondName" type="text" class="form-control">
+        </div>
+
+        <div class="col-sm-4">
+          <label>Numer telefonu</label>
+          <input formControlName="clientPhoneNumber" type="text" class="form-control">
+        </div>
+
+        <div class="col-sm-4">
+          <label>Adres e-mail</label>
+          <input formControlName="clientEmail" type="text" class="form-control">
+        </div>
+
+      </div>
+
+      <div class="row form-group">
+
+        <div class="col-sm-4">
+          <label>Cena</label>
+          <input formControlName="cost" type="number" class="form-control">
+        </div>
+
+        <div class="col-sm-4">
+          <br>
+          <p>Czy auto jest przecenione?
+            <input formControlName="ifDiscount" type="checkbox">
+          </p>
+        </div>
+
+        <div class="col-sm-4">
+          <button [disabled]="carForm.invalid" (click)="addCar()" class="btn btn-primary btn-lg">Dodaj samochód</button>
+          <button (click)="carForm.reset()" class="btn btn-warning btn-lg">Wyczyść pola
+          </button>
+        </div>
+
+      </div>
+
+    </form>
+
+    <!--możemy tutaj zobaczyć co na bierząco
+    przypisuje do formukalrza-->
+    <pre>{{carForm.value | json}}</pre>
+    <pre>czy plate działa? : {{carForm.get('licensePlate').valid | json}}</pre>
+
+  </div>
+
 </div>
+
+
+
