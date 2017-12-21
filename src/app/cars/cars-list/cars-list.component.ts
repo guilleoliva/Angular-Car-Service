@@ -1,12 +1,14 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {Car} from "../models/car";
 import {CarsService} from "../cars.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'cars-list',
   templateUrl: './cars-list.component.html',
-  styleUrls: ['./cars-list.component.css']
+  styleUrls: ['./cars-list.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 /*klasa implementuje interfejs OnInit*/
 export class CarsListComponent implements OnInit {
@@ -25,7 +27,7 @@ export class CarsListComponent implements OnInit {
   carForm: FormGroup;
 
   /*serwisy wstrzykujemy do konstruktorow naszych componentow*/
-  constructor(private carsService: CarsService, private formBuilder: FormBuilder) {
+  constructor(private carsService: CarsService, private formBuilder: FormBuilder, private router: Router) {
   }
 
   /*metoda ngOnInit interfejsu OnInit - jest to punkt zycia komponentu,
